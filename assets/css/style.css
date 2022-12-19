@@ -1,3 +1,22 @@
-/*COLORES
+/*COLORES 
+amarillo: #f2c105
+azul: #1f5ea6
 TIPO DE LETRA
 */
+
+@font-face {
+    font-family: 'pokemon';
+    src: url(./fonts/pokemonnormal.ttf) format('truetype');
+    font-style: normal;
+    font-weight: normal;
+}
+@font-face {
+    font-family: 'pokemon-solid';
+    src: url(./fonts/pokemonsolidnormal.ttf) format('truetype');
+    font-style: normal;
+    font-weight: bold;
+}
+
+.title-text{
+    font-family: 'pokemon-solid';
+}
