@@ -6,16 +6,17 @@ TIPO DE LETRA
 
 @font-face {
     font-family: 'pokemon';
-    src: url(./fonts/Pokemon\ Hollow\ Normal\ 400.ttf) format('truetype');
+    src: url(./fonts/pokemonnormal.ttf) format('truetype');
     font-style: normal;
     font-weight: normal;
 }
 @font-face {
     font-family: 'pokemon-solid';
-    src: url(./fonts/Pokemon\ Solid\ Normal\ 400.ttf) format('truetype');
+    src: url(./fonts/pokemonsolidnormal.ttf) format('truetype');
     font-style: normal;
     font-weight: bold;
 }
-/* .title-text{
+
+.title-text{
     font-family: 'pokemon-solid';
-} */
+}
