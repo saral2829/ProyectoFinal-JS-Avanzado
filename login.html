@@ -30,19 +30,19 @@
                     <!-- Email input -->
                     <div class="form-outline mb-4">
                       <input type="text" id="username" class="form-control form-control-lg P--text"
-                        placeholder="UserName" />
+                        placeholder="UserName" required />
                       <label class="form-label label--text" for="form3Example3">UserName</label>
                     </div>
           
                     <!-- Password input -->
                     <div class="form-outline mb-3">
                       <input type="password" id="password" class="form-control form-control-lg P--text"
-                        placeholder="password" />
-                      <label class="form-label label--text" for="form3Example4">Password</label>
+                        placeholder="password"  required/>
+                      <label class="form-label label--text" for="form3Example4" >Password</label>
                     </div>
           
                     <div class="text-center text-lg-start mt-4 pt-2">
-                        <input type="submit" value="Iniciar Sesión" class="btn btn-primary btn-lg P--text btn--login">
+                        <input type="submit" id="iniciar" value="Iniciar Sesión" class="btn btn-primary btn-lg P--text btn--login" >
                       <p class="small fw-bold mt-2 pt-1 mb-0 P--text">Aún no te has registrado? <a href="signup.html"
                           class="link-danger P--text">Registrate</a></p>
                     </div>
@@ -54,6 +54,6 @@
          
           </section>
     </main>
-
+    <script src="./assets/js/login.js"></script>
 </body>
 </html>
