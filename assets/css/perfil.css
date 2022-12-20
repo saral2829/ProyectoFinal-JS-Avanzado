@@ -1,0 +1,45 @@
+@font-face {
+    font-family: 'pokemon';
+    src: url(./fonts/pokemonnormal.ttf) format('truetype');
+    font-style: normal;
+    font-weight: normal;
+}
+
+.perfill--background{
+    background-image: url(../img/index-login/fondo-yellow.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.data--pokefav .card {
+    border: 2px solid rgba(245, 243, 243, 0.327);
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.66);
+    box-shadow: rgba(0, 0, 0, 0.518) 0px 10px 4px;
+    
+}
+
+.data--pokefavedit{
+    border: 2px solid rgba(245, 243, 243, 0.327);
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.66);
+    box-shadow: rgba(0, 0, 0, 0.518) 10px 10px 5px 5px;
+}
+
+.label--text{
+    font-family: 'pokemon';
+    font-size: 1.7rem;
+    color: #1f5ea6;
+}
+
+.text-title{
+    font-family: 'pokemon';
+    font-size: 2.9rem;
+    text-align: center;
+    color: #1f5ea6;
+}
+
+.text-btn{
+    font-family: 'pokemon';
+    font-size: 1.2rem;
+}
