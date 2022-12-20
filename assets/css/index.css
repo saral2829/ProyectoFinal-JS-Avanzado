@@ -1,0 +1,15 @@
+.login--style {
+    background-image: url(../img/index-login/pokemon-fondo.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+}
+
+.label--password{
+    font-family: 'pokemon';
+    font-size: 1.5rem;
+}
+
+.container--form{
+    border: 10px solid black;
+}
