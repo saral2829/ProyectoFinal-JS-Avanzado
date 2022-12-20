@@ -30,5 +30,5 @@ Consta de varias secciones. Login, profile, Pokemon List, Pokemon Favorites y Re
 - Leslie Sarybell Gómez Vargas
 - Franklin Espinoza Espíndola
 - Jean Carlos Salazar Sarmiento
-- Eduert
+- Eduerth Fernando Fernandez Martinez
 - Maribel Torres Guevara
