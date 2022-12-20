@@ -1,3 +1,5 @@
+
+
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600&display=swap");
 
 
@@ -21,10 +23,14 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'pokemon', sans-serif;
+    
 }
 
+
 body{
-    background: rgb(5, 5, 5);
+    background-image: url(../img/index-login/fondo.jpg);
+    background-size: cover;
+     background-repeat: no-repeat;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -32,22 +38,23 @@ body{
 }
 
 .container{
-    background-color: #fff;
+   background-color: rgba(255, 255, 255, 0.358);
     border-radius: 10px;
     overflow: hidden;
-    box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034), 0 6.7px 5.3px rgba(0,0,0,0.048), 0 12.8px 10.5px rgba(0,0,0,0.58) ;
+    box-shadow: 0 2.8px 2.2px  rgba(0, 0, 0, 0.518) 10px 10px 5px 5px ;
     width: 550px;
     max-width: 100%;
+    
 }
 
 .header{
-    background-color: #bd1111;
+    background-color: #e78708;
     padding: 30px 0;
 }
 
 .header h2{
     color: #000;
-    font-size: 26px;
+    font-size: 30px;
     text-transform: uppercase;
     text-align: center;
 }
@@ -59,17 +66,20 @@ body{
 .form-control{
     margin-bottom: 30px;
     position: relative;
+    background-color:  #e78708;
+    
 }
 
 .form-control label{
     display: inline-block;
     margin-bottom: 5px;
+    font-size:20px;
 }
 
 .form-control input{
     width: 100%;
     border: 2px solid #f0f0f0;
-    font-size: 14px;
+    font-size: 20px;
     border-radius: 5px;
     padding: 12px;
     display: block;
@@ -117,20 +127,20 @@ body{
 }
 
 .form .btn{
-    background: #0609c4;
+    background: #d36a08;
     border-radius: 5px;
     border: none;
     outline: none;
     display: block;
-    font-size: 16px;
+    font-size: 30px;
     padding: 15px 0;
     margin-top: 15px;
     width: 100%;
-    color: #fff;
+    color: rgb(3, 3, 3);
     font-weight: bold;
     text-transform: uppercase;
 }
 
 .form .btn:hover{
-    background: #241ab9;
+    background: #a71d05;
 }
