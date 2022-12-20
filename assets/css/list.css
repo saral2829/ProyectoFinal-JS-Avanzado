@@ -1,0 +1,121 @@
+/*@font-face {
+    font-family: 'pokemon';
+    src: url(./fonts/pokemonnormal.ttf) format('truetype');
+    font-style: normal;
+    font-weight: normal;
+}*/
+@font-face {
+    font-family: 'pokemon-solid';
+    src: url(./fonts/pokemonsolidnormal.ttf) format('truetype');
+    font-style: normal;
+    font-weight: bold;
+}
+
+body{
+    background-image: url(../img/list/fondo.webp);
+    font-family: 'pokemon-solid';
+    /*letter-spacing: 4px;*/
+}
+
+
+.container {
+    max-width: 400px;
+    margin: auto;
+    text-align: center;
+}
+
+select {
+    border-radius: 8px;
+    padding: 10px 8px;
+    appearance: none;
+    border-radius: 8px;
+    background-color: #3864ab;
+    color: white;
+    cursor: pointer;
+    font-size: 1.5rem;
+    padding: 10px 8px;
+    width: 200px;
+    text-align: center;
+    letter-spacing: 4px;
+}
+  
+.card {
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+p {
+    font-size: 2rem;
+}
+
+.btn{
+    background-color: #3864ab;
+}
+
+#pokemon-name {
+  color: #3864ab;
+  font-size: 2rem;
+}
+
+
+.header{
+    background-color: #b97111;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 85px;
+    padding: 5px 10%;
+}
+.header .logo{
+    cursor: pointer;
+}
+
+.header .logo img{
+    height: 100px;
+    width: auto;
+    transition: all 0.3s;
+}
+
+
+.header .logo img:hover{
+    transform: scale(1.2);
+}
+
+.header .nav-links{
+    list-style: none;
+}
+
+.header .nav-links li{
+    display: inline-block;
+    padding: 0 20px;    
+}
+
+.header .nav-links li:hover{
+    transform: scale(1.1);
+}
+
+.header .nav-links a{
+    font-size: 700;
+    color: #eceff1;
+    text-decoration: none;    
+}
+
+.header .nav-links li a:hover{
+    color: #ffbc0e;
+}
+
+.header .btn button{
+    font-weight: 700;
+    color: #1b3039;
+    padding: 9px 25px;
+    background: #eceff1;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease 0s;
+}
+
+.header .btn button:hover{
+    background-color: #e2f1f8;
+    color: #ffbc0e;
+    transform: scale(1.1);
+}
