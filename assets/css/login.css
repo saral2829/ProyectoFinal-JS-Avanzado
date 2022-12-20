@@ -1,0 +1,51 @@
+.divider:after,
+.divider:before {
+content: "";
+flex: 1;
+height: 1px;
+background: #eee;
+}
+.h-custom {
+height: calc(100% - 73px);
+}
+@media (max-width: 450px) {
+.h-custom {
+height: 100%;
+}
+}
+
+@font-face {
+    font-family: 'pokemon';
+    src: url(./fonts/pokemonnormal.ttf) format('truetype');
+    font-style: normal;
+    font-weight: normal;
+}
+
+.label--text{
+    font-family: 'pokemon';
+    font-size: 1.7rem;
+    color: #1f5ea6;
+}
+
+.P--text{
+    font-family: 'pokemon';
+    font-size: 1.2rem;
+}
+
+.form-content{
+    background-image: url(../img/index-login/fondo.jpg);
+     background-size: cover;
+     background-repeat: no-repeat;
+}
+
+.login-style{
+    border: 2px solid rgba(245, 243, 243, 0.327);
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.358);
+    box-shadow: rgba(0, 0, 0, 0.518) 10px 10px 5px 5px;
+}
+
+.btn--login{
+    padding-left: 2.5rem; 
+    padding-right: 2.5rem;
+}
