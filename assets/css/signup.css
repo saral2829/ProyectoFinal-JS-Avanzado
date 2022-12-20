@@ -22,7 +22,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'pokemon', sans-serif;
+    font-family: 'pokemon-solid', sans-serif;
     
 }
 
@@ -79,7 +79,7 @@ body{
 .form-control input{
     width: 100%;
     border: 2px solid #f0f0f0;
-    font-size: 20px;
+    font-size: 25px;
     border-radius: 5px;
     padding: 12px;
     display: block;
@@ -110,10 +110,11 @@ body{
 }
 
 .form-control small{
-    color: #df3434;
+    color: #0a0909;
     position: absolute;
     left: 0;
     visibility: hidden;
+    font-size: 20px;
 }
 
 .form-control.success i.fa-check-circle{
