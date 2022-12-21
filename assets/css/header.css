@@ -1,0 +1,25 @@
+@font-face {
+    font-family: 'pokemon';
+    src: url(./fonts/pokemonnormal.ttf) format('truetype');
+    font-style: normal;
+    font-weight: normal;
+}
+.navbar-toggler{
+    background-color: #eb1f2a;
+}
+
+.bg--color{
+    background-color: #1f5ea6;
+}
+
+.text--header{
+    font-family: 'pokemon';
+    font-size: 1.5rem;
+    color: white;
+}
+
+.text--header--menu{
+    font-family: 'pokemon';
+    font-size: 1.5rem;
+    color: white;
+}
