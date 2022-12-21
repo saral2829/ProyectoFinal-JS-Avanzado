@@ -1,0 +1,15 @@
+.img{
+    object-fit: cover;
+}
+.img-section {
+    background: url('https://wallpapercave.com/wp/FtfOuAC.jpg');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+.card-pokemon{
+    background: rgba(222 222 222 / .3);
+    backdrop-filter: blur(10px);
+}
