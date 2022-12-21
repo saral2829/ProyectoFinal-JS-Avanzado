@@ -19,11 +19,40 @@ $(document).ready(() => {
     location.replace(page + ".html");
   }
 
+  function refresh() {
+    location.reload();
+  }
+
   function isSignedIn() {
     const userId = sessionStorage.getItem("userId");
     if (userId) {
       return true;
     }
+  }
+
+  function iniciarSesion(data, redireccion) {
+    // Esta ruta te devuelve un token
+    // y userId para guardalo en el sessionStorage
+    fetch(FAVOAPI_URL + "/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        // Guardar el token y la data del usuario en el sessionStorage.
+        sessionStorage.setItem("token", data.token);
+        sessionStorage.setItem("userId", data.userId);
+
+        // Redireccionar a favoritos
+        redirect(redireccion);
+      })
+      .catch((error) => {
+        $body.addClass("error");
+        $("#message").text(error);
+      });
   }
 
   function signOut() {
@@ -36,6 +65,15 @@ $(document).ready(() => {
 
   function getPokemonId(pokemonURL) {
     return pokemonURL.slice(0, -1).split("/").pop();
+  }
+
+  function deleteFavorite(userId, pokemonId) {
+    return fetch(FAVOAPI_URL + "/users/" + userId + "/favorites/" + pokemonId, {
+      method: "DELETE",
+      headers: {
+        Authorization: sessionStorage.getItem("token"),
+      },
+    });
   }
 
   switch (page) {
@@ -52,7 +90,7 @@ $(document).ready(() => {
         e.preventDefault();
         const data = getFormData(e.target);
 
-        // Petición a nuestra API
+        // Petición a nuestra API para crear un usuario
         fetch(FAVOAPI_URL + "/users", {
           method: "POST",
           headers: {
@@ -65,9 +103,9 @@ $(document).ready(() => {
             $body.addClass("success");
 
             setTimeout(() => {
-              // Redireccionar al login
-              redirect("login");
-            }, 5000);
+              // Inciar session
+              iniciarSesion(data, "pokemons");
+            }, 3000);
           });
       });
 
@@ -86,33 +124,13 @@ $(document).ready(() => {
         e.preventDefault();
         const data = getFormData(e.target);
 
-        // Petición a nuestra API
-        fetch(FAVOAPI_URL + "/login", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            // Guardar el token y la data del usuario en el sessionStorage.
-            sessionStorage.setItem("token", data.token);
-            sessionStorage.setItem("userId", data.userId);
-
-            // Redireccionar a favoritos
-            redirect("pokemonfavorite");
-          })
-          .catch((error) => {
-            $body.addClass("error");
-            $("#message").text(error);
-          });
+        iniciarSesion(data, "pokemonfavorite");
       });
 
       break;
     }
 
-    case "pokemonlist": {
+    case "pokemons": {
       // Si el usuario NO esta logeado.
       if (!isSignedIn()) {
         // Redireccionar al login.
@@ -127,10 +145,21 @@ $(document).ready(() => {
       fetch(POKEAPI_GEN_URL + "/1")
         .then((response) => response.json())
         .then((data) => {
+          const $card = $("#pokemon-card");
           const $select = $("#pokemons-selector");
           const $pokemonImg = $("#pokemon-img");
           const $pokemonName = $("#pokemon-name");
           const $addToFavorites = $("#add-to-favorites");
+
+          data.pokemon_species.forEach((pokemon) => {
+            // Creamos y agregamos un option por cada nombre.
+            const $option = $(
+              `<option value="${getPokemonId(pokemon.url)}">${
+                pokemon.name
+              }</option>`
+            );
+            $select.append($option);
+          });
 
           $addToFavorites.on("click", () => {
             // Consultar a nuestra API
@@ -144,39 +173,42 @@ $(document).ready(() => {
                 pokemonId: $select.val(),
                 pokemonName: $select.find(":selected").text(),
               }),
+            }).then(() => {
+              $select.change();
             });
           });
 
-          data.pokemon_species.forEach((pokemon) => {
-            // Creamos y agregamos un option por cada nombre.
-            const $option = $(
-              `<option value="${getPokemonId(pokemon.url)}">${
-                pokemon.name
-              }</option>`
-            );
-            $select.append($option);
-          });
-
+          // Evento change de select
           $select.on("change", async () => {
-            const pokemonId = $select.val();
-            const pokemonName = $select.find(":selected").text();
-            $pokemonName.text(pokemonName);
-            $pokemonImg.attr("src", POKEAPI_IMG_URL + "/" + pokemonId + ".svg");
+            // Consultar a la nuestra API FAVOAPI.
+            fetch(FAVOAPI_URL + "/users/" + userId + "/favorites", {
+              method: "GET",
+              headers: {
+                Authorization: token,
+              },
+            })
+              .then((response) => response.json())
+              .then((favorites) => {
+                // Pintar el background si el pokemon esta en favorites.
+
+                const pokemonId = $select.val();
+                const pokemonName = $select.find(":selected").text();
+
+                if (favorites.findIndex(({ id }) => id == pokemonId) != -1) {
+                  $card.addClass("favorite");
+                } else {
+                  $card.removeClass("favorite");
+                }
+
+                $pokemonName.text(pokemonName);
+                $pokemonImg.attr(
+                  "src",
+                  POKEAPI_IMG_URL + "/" + pokemonId + ".svg"
+                );
+              });
           });
 
-          return;
-
-          // Consultar a la nuestra API FAVOAPI.
-          fetch(FAVOAPI_URL + "/users/" + userId + "/favorites", {
-            method: "GET",
-            headers: {
-              Authorization: token,
-            },
-          })
-            .then((response) => response.json())
-            .then((favorites) => {
-              // Pintar el background si el pokemon esta en favorites.
-            });
+          $select.val(10).change();
         });
 
       break;
@@ -215,17 +247,120 @@ $(document).ready(() => {
           $list.empty();
           favorites.forEach((pokemon) => {
             // En cada card se debe mostrar el nombre y la foto
-            $list.append(`
-              <div class="favorite-card">
-                <figure>
-                  <img src="${POKEAPI_IMG_URL + "/" + pokemon.id}.svg" />
-                </figure>
-                <h4>${pokemon.name}</h4>
-                <button>Eliminar</button>
-              </div>
-            `);
+
+            const $card = $(`
+            <div class="favorite-card">
+              <figure>
+                <img src="${POKEAPI_IMG_URL + "/" + pokemon.id}.svg" />
+              </figure>
+              <h4>${pokemon.name}</h4>
+            </div>
+          `);
+            const $button = $(`
+          
+          <button>
+          Eliminar
+        </button>
+        `);
+            $button.on("click", () => {
+              const respuesta = prompt(
+                "Estas seguro que deseas eliminar",
+                "NO"
+              );
+
+              if (respuesta.toUpperCase() === "SI") {
+                deleteFavorite(userId, pokemon.id).then(() => {
+                  refresh();
+                });
+              }
+            });
+
+            $card.append($button);
+            $list.append($card);
           });
         });
+
+      break;
+    }
+
+    case "userperfil": {
+      // Si el usuario NO esta logeado.
+      if (!isSignedIn()) {
+        // Redireccionar al login.
+        redirect("login");
+        return;
+      }
+
+      const userId = sessionStorage.getItem("userId");
+      const token = sessionStorage.getItem("token");
+
+      // seleccionamos los inputs
+      const $name = $('input[name="name"]');
+      const $user = $('input[name="user"]');
+      const $email = $('input[name="email"]');
+
+      //button
+      const $eliminarCuenta = $("#eliminarCuenta");
+      $eliminarCuenta.on("click", () => {
+        fetch(FAVOAPI_URL + "/users/" + userId, {
+          method: "DELETE",
+          headers: {
+            Authorization: token,
+          },
+        })
+          .then((response) => response.json())
+          .then(() => {
+            signOut();
+            redirect("index");
+          });
+      });
+
+      // show details
+      const $showName = $("#show-name");
+      const $showEmail = $("#show-email");
+
+      // buttons
+      const $edit = $("#edit");
+      const $save = $("#save");
+
+      // Consultar a la POKEAPI_GEN.
+      fetch(FAVOAPI_URL + "/users/" + userId, {
+        headers: {
+          Authorization: token,
+        },
+      })
+        .then((response) => response.json())
+        .then(({ _id, name, user, email }) => {
+          $name.val(name);
+          $user.val(user);
+          $email.val(email);
+
+          $showName.text(name);
+          $showEmail.text(email);
+        });
+
+      $edit.on("click", () => {
+        $name.prop("disabled", false);
+        $user.prop("disabled", false);
+        $email.prop("disabled", false);
+      });
+
+      $save.on("click", () => {
+        fetch(FAVOAPI_URL + "/users/" + userId, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: token,
+          },
+          body: JSON.stringify({
+            name: $name.val(),
+            // user: $user.val(),
+            email: $email.val(),
+          }),
+        }).then(() => {
+          refresh();
+        });
+      });
 
       break;
     }
@@ -233,4 +368,9 @@ $(document).ready(() => {
     default:
       break;
   }
+
+  $("#cerrar-sesion").on("click", () => {
+    signOut();
+    refresh();
+  });
 });
